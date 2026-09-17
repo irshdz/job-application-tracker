@@ -32,9 +32,7 @@ export default function ApplicationForm({
   const [error, setError] = useState("");
 
   /*
-   * Instead of useEffect + setState,
-   * load the selected application during render
-   * only when the selected application changes.
+   * Load selected application when edit mode changes.
    */
   if (
     editingApplication &&
@@ -62,8 +60,7 @@ export default function ApplicationForm({
   }
 
   /*
-   * When edit mode is cancelled,
-   * reset the loaded application marker.
+   * Reset edit marker when edit mode is cancelled.
    */
   if (
     !editingApplication &&
@@ -182,28 +179,41 @@ export default function ApplicationForm({
   const isEditMode = Boolean(editingApplication);
 
   return (
-    <div className="rounded-xl border bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-lg">
 
       {/* Header */}
-      <h2 className="text-xl font-semibold text-gray-900">
-        {isEditMode
-          ? "Edit Job Application"
-          : "Add Job Application"}
-      </h2>
+      <div className="mb-6">
 
-      <p className="mt-1 text-sm text-gray-500">
-        {isEditMode
-          ? "Update your job application details."
-          : "Add a new job application to your tracker."}
-      </p>
+        <div className="mb-2 inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400">
+          {isEditMode
+            ? "Edit Application"
+            : "New Application"}
+        </div>
+
+        <h2 className="text-xl font-semibold text-white">
+          {isEditMode
+            ? "Edit Job Application"
+            : "Add Job Application"}
+        </h2>
+
+        <p className="mt-1 text-sm text-slate-400">
+          {isEditMode
+            ? "Update your job application details."
+            : "Add a new job application to your tracker."}
+        </p>
+
+      </div>
+
 
       {/* Error */}
       {error && (
-        <div className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-600">
+        <div className="mt-4 rounded-lg border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-400">
           {error}
         </div>
       )}
 
+
+      {/* Form */}
       <form
         onSubmit={handleSubmit}
         className="mt-6 space-y-5"
@@ -211,7 +221,7 @@ export default function ApplicationForm({
 
         {/* Company */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-slate-300">
             Company
           </label>
 
@@ -222,13 +232,14 @@ export default function ApplicationForm({
             onChange={handleChange}
             placeholder="e.g. TCS"
             required
-            className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
+
         {/* Position */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-slate-300">
             Position
           </label>
 
@@ -239,13 +250,14 @@ export default function ApplicationForm({
             onChange={handleChange}
             placeholder="e.g. Java Full Stack Developer"
             required
-            className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
+
         {/* Location */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-slate-300">
             Location
           </label>
 
@@ -255,16 +267,17 @@ export default function ApplicationForm({
             value={formData.location}
             onChange={handleChange}
             placeholder="e.g. Kochi"
-            className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
+
 
         {/* Status + Job Type */}
         <div className="grid gap-5 md:grid-cols-2">
 
           {/* Status */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-slate-300">
               Status
             </label>
 
@@ -272,7 +285,7 @@ export default function ApplicationForm({
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full rounded-lg border bg-white px-4 py-2.5 outline-none focus:border-black"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             >
               <option value="APPLIED">Applied</option>
               <option value="SCREENING">Screening</option>
@@ -282,9 +295,10 @@ export default function ApplicationForm({
             </select>
           </div>
 
+
           {/* Job Type */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-slate-300">
               Job Type
             </label>
 
@@ -292,7 +306,7 @@ export default function ApplicationForm({
               name="jobType"
               value={formData.jobType}
               onChange={handleChange}
-              className="w-full rounded-lg border bg-white px-4 py-2.5 outline-none focus:border-black"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             >
               <option value="FULL_TIME">Full Time</option>
               <option value="PART_TIME">Part Time</option>
@@ -303,12 +317,13 @@ export default function ApplicationForm({
 
         </div>
 
+
         {/* Applied Date + Salary */}
         <div className="grid gap-5 md:grid-cols-2">
 
           {/* Applied Date */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-slate-300">
               Applied Date
             </label>
 
@@ -317,13 +332,14 @@ export default function ApplicationForm({
               name="appliedDate"
               value={formData.appliedDate}
               onChange={handleChange}
-              className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
+
           {/* Salary */}
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-700">
+            <label className="mb-2 block text-sm font-medium text-slate-300">
               Salary
             </label>
 
@@ -334,15 +350,16 @@ export default function ApplicationForm({
               onChange={handleChange}
               placeholder="e.g. 600000"
               min="0"
-              className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+              className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             />
           </div>
 
         </div>
 
+
         {/* Job URL */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-slate-300">
             Job URL
           </label>
 
@@ -352,13 +369,14 @@ export default function ApplicationForm({
             value={formData.jobUrl}
             onChange={handleChange}
             placeholder="https://example.com/job"
-            className="w-full rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
 
+
         {/* Notes */}
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-700">
+          <label className="mb-2 block text-sm font-medium text-slate-300">
             Notes
           </label>
 
@@ -368,9 +386,10 @@ export default function ApplicationForm({
             onChange={handleChange}
             placeholder="Add notes about this application..."
             rows="4"
-            className="w-full resize-none rounded-lg border px-4 py-2.5 outline-none focus:border-black"
+            className="w-full resize-none rounded-lg border border-slate-700 bg-slate-950 px-4 py-2.5 text-white outline-none transition placeholder:text-slate-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           />
         </div>
+
 
         {/* Buttons */}
         <div className="flex gap-3">
@@ -378,7 +397,7 @@ export default function ApplicationForm({
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 rounded-lg bg-black px-5 py-3 font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex-1 rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {loading
               ? isEditMode
@@ -389,12 +408,13 @@ export default function ApplicationForm({
                 : "Add Application"}
           </button>
 
+
           {isEditMode && (
             <button
               type="button"
               onClick={handleCancel}
               disabled={loading}
-              className="rounded-lg border px-5 py-3 font-medium text-gray-700 transition hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg border border-slate-700 px-5 py-3 font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
             >
               Cancel
             </button>
@@ -403,6 +423,7 @@ export default function ApplicationForm({
         </div>
 
       </form>
+
     </div>
   );
 }

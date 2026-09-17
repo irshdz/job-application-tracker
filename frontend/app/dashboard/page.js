@@ -24,7 +24,6 @@ export default function DashboardPage() {
 
   const [applications, setApplications] = useState([]);
 
-  // Currently selected application for editing
   const [editingApplication, setEditingApplication] =
     useState(null);
 
@@ -210,15 +209,12 @@ export default function DashboardPage() {
         config
       );
 
-      // If deleted application was being edited,
-      // exit edit mode
       if (
         editingApplication?.id === application.id
       ) {
         setEditingApplication(null);
       }
 
-      // Refresh dashboard and applications
       await loadDashboard();
       await loadApplications(search, status);
     } catch (err) {
@@ -238,20 +234,31 @@ export default function DashboardPage() {
   // Loading
   if (loading) {
     return (
-      <main className="min-h-screen bg-gray-50">
+      <main className="min-h-screen bg-slate-950">
+
         <Navbar />
 
-        <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-20">
-          <p className="text-gray-500">
-            Loading dashboard...
-          </p>
+        <div className="mx-auto flex max-w-7xl items-center justify-center px-6 py-24">
+
+          <div className="text-center">
+
+            <div className="mx-auto h-10 w-10 animate-spin rounded-full border-2 border-slate-700 border-t-blue-500"></div>
+
+            <p className="mt-4 text-slate-400">
+              Loading dashboard...
+            </p>
+
+          </div>
+
         </div>
+
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-slate-950">
+
       <Navbar />
 
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -260,30 +267,39 @@ export default function DashboardPage() {
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
 
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+
+            <div className="mb-2 inline-flex rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400">
+              Job Application Management
+            </div>
+
+            <h1 className="text-3xl font-bold text-white">
               Dashboard
             </h1>
 
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-slate-400">
               Track and manage all your job applications.
             </p>
+
           </div>
+
 
           <Link
             href="/"
-            className="rounded-lg border bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
           >
             Home
           </Link>
 
         </div>
 
+
         {/* Error */}
         {error && (
-          <div className="mt-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+          <div className="mt-6 rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400">
             {error}
           </div>
         )}
+
 
         {/* Statistics */}
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -326,11 +342,13 @@ export default function DashboardPage() {
 
         </div>
 
+
         {/* Application Form */}
         <div
           id="application-form"
           className="mt-10"
         >
+
           <ApplicationForm
             onApplicationCreated={
               handleApplicationCreated
@@ -345,7 +363,9 @@ export default function DashboardPage() {
               handleCancelEdit
             }
           />
+
         </div>
+
 
         {/* Applications Table */}
         <div className="mt-10">
@@ -361,6 +381,7 @@ export default function DashboardPage() {
         </div>
 
       </div>
+
     </main>
   );
 }

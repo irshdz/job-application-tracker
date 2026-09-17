@@ -1,7 +1,7 @@
 package com.example.jobtracker.dto;
 
 import com.example.jobtracker.model.ApplicationStatus;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
@@ -28,7 +28,11 @@ public class JobApplicationRequest {
     @PastOrPresent(message = "Applied date cannot be in the future")
     private LocalDate appliedDate;
 
-    @Min(value = 0, message = "Salary cannot be negative")
+    @DecimalMin(
+            value = "0.0",
+            inclusive = true,
+            message = "Salary cannot be negative"
+    )
     private Double salary;
 
     private String jobUrl;

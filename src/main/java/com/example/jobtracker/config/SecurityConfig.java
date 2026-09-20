@@ -31,21 +31,31 @@ public class SecurityConfig {
             throws Exception {
 
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
+                .cors(cors ->
+                        cors.configurationSource(corsConfigurationSource())
+                )
+                .csrf(csrf ->
+                        csrf.disable()
+                )
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS
                         )
                 )
                 .authorizeHttpRequests(auth -> auth
+
+                        // Allow CORS preflight requests
                         .requestMatchers(
                                 org.springframework.http.HttpMethod.OPTIONS,
                                 "/**"
                         ).permitAll()
+
+                        // Public authentication endpoints
                         .requestMatchers(
                                 "/api/auth/**"
                         ).permitAll()
+
+                        // Everything else requires JWT authentication
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(
@@ -62,10 +72,15 @@ public class SecurityConfig {
         CorsConfiguration configuration =
                 new CorsConfiguration();
 
+        // Local development + deployed Vercel frontend
         configuration.setAllowedOrigins(
-                List.of("http://localhost:3000")
+                List.of(
+                        "http://localhost:3000",
+                        "https://frontend-blond-five-na5ywu9h7u.vercel.app"
+                )
         );
 
+        // Allowed HTTP methods
         configuration.setAllowedMethods(
                 List.of(
                         "GET",
@@ -76,10 +91,12 @@ public class SecurityConfig {
                 )
         );
 
+        // Allow request headers including Authorization
         configuration.setAllowedHeaders(
                 List.of("*")
         );
 
+        // Required for JWT/authenticated requests
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
@@ -100,4 +117,4 @@ public class SecurityConfig {
 
         return configuration.getAuthenticationManager();
     }
-}
+    }

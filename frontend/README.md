@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# JobTracker — Frontend
 
-## Getting Started
+The frontend of **JobTracker**, a full-stack Job Application Tracker built with Next.js, React, Tailwind CSS and Axios.
 
-First, run the development server:
+## Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[Open JobTracker](https://frontend-blond-five-na5ywu9h7u.vercel.app/)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Overview
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+JobTracker helps users manage and track their job applications from a single dashboard.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The frontend provides a responsive interface for authentication, application management, searching, filtering and viewing application statistics.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- User registration and login
+- JWT-based authentication
+- Protected dashboard
+- Create job applications
+- View job applications
+- Edit job applications
+- Delete job applications
+- Search applications
+- Filter applications by status
+- Dashboard statistics
+- Application status tracking
+- Responsive dark-themed UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js
+- React
+- JavaScript
+- Tailwind CSS
+- Axios
 
-## Deploy on Vercel
+## Backend
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The frontend communicates with a Spring Boot REST API.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```text
+Next.js Frontend
+       ↓
+     Axios
+       ↓
+Spring Boot REST API
+       ↓
+   MongoDB Atlas
